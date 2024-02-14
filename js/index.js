@@ -30,12 +30,17 @@ document.addEventListener('keyup', handleKeyboardButtonPress)
 // --------------------keyboard Key press---------------------
 function handleKeyboardButtonPress(event) {
     const plyerPressed = event.key;
-    console.log('player pressed', plyerPressed)
+    // console.log('player pressed', plyerPressed)
+
+    // ------stop the game if pressed 'Esc' ------------
+    if(plyerPressed === 'Escape'){
+        gameOver();
+    }
 
     const currentAlphabetElement = document.getElementById('current-alphabet');
     const currentAlphabet = currentAlphabetElement.innerText;
     const expecterAlphabet = currentAlphabet.toLocaleLowerCase();
-    console.log(plyerPressed, expecterAlphabet);
+    // console.log(plyerPressed, expecterAlphabet);
 
     if (plyerPressed === expecterAlphabet) {
         console.log('you get a point')
@@ -48,6 +53,9 @@ function handleKeyboardButtonPress(event) {
         // const newScore = currentScore + 1;
 
         // currentScoreElement.innerText = newScore;
+        const currentScore = getTextElementById('current-score');
+        const newScore = currentScore + 1;
+        setTextElementValueById('current-score', newScore)
 
         // start a new round
         removeBackgroundColorById(expecterAlphabet);
@@ -64,6 +72,14 @@ function handleKeyboardButtonPress(event) {
 
         // currentLifeElement.innerText = newLife;
 
+        const currentLife = getTextElementById('current-life');
+        const newLife = currentLife -1;
+        setTextElementValueById('current-life', newLife)
+
+        if(newLife === 0){
+            gameOver();
+        }
+
     }
 }
 
@@ -72,7 +88,7 @@ function handleKeyboardButtonPress(event) {
 
 function cotinueGame() {
     const alphabet = getRandomAlphabet();
-    console.log('Your ramdom alphabet ', alphabet);
+    // console.log('Your ramdom alphabet ', alphabet);
 
     const currentAlphabet = document.getElementById('current-alphabet');
     currentAlphabet.innerText = alphabet;
@@ -81,7 +97,28 @@ function cotinueGame() {
 }
 
 function play() {
+    // hide everything show only the playground
     hideElementById('home-screen');
+    hideElementById('final-score');
     showElementById('play-ground');
+
+    setTextElementValueById('current-life', 5);
+    setTextElementValueById('current-score', 0);
+
+
     cotinueGame();
+}
+
+function gameOver(){
+    hideElementById('play-ground');
+    showElementById('final-score');
+
+    // update final score
+    const lastScore = getTextElementById('current-score');
+    console.log(lastScore);
+    setTextElementValueById('game-score', lastScore)
+
+    // clear the last selected alphabet helight
+    const currentAlphabet = getElementTextById('current-alphabet');
+    removeBackgroundColorById(currentAlphabet);
 }
