@@ -85,7 +85,6 @@ function handleKeyboardButtonPress(event) {
 
 
 
-
 function cotinueGame() {
     const alphabet = getRandomAlphabet();
     // console.log('Your ramdom alphabet ', alphabet);
