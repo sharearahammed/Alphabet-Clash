@@ -24,11 +24,17 @@
 //     showElementById('play-ground');
 //     continueGame();
 // }
+// ------------------------------------- Practice ONE 1 ---------------------------------------------------
+
+
+const audio = new Audio();
+let isGamePlayOn = false;
 
 // capture keyboard key press
 document.addEventListener('keyup', handleKeyboardButtonPress)
 // --------------------keyboard Key press---------------------
 function handleKeyboardButtonPress(event) {
+    if(isGamePlayOn == false) return;
     const plyerPressed = event.key;
     // console.log('player pressed', plyerPressed)
 
@@ -45,6 +51,9 @@ function handleKeyboardButtonPress(event) {
     if (plyerPressed === expecterAlphabet) {
         console.log('you get a point')
 
+        audio.src = "./audio/success-sound.mp3";
+        audio.play();
+
         // update score
         // const currentScoreElement = document.getElementById('current-score');
         // const currentScoreText = currentScoreElement.innerText;
@@ -53,6 +62,8 @@ function handleKeyboardButtonPress(event) {
         // const newScore = currentScore + 1;
 
         // currentScoreElement.innerText = newScore;
+
+
         const currentScore = getTextElementById('current-score');
         const newScore = currentScore + 1;
         setTextElementValueById('current-score', newScore)
@@ -63,6 +74,8 @@ function handleKeyboardButtonPress(event) {
     }
     else {
         console.log('you missed. you lost a life')
+        audio.src = "./audio/wrong-audio.mp3";
+        audio.play();
         // Get the current life number
         // const currentLifeElement = document.getElementById('current-life');
         // const currentLifeText = currentLifeElement.innerText;
@@ -104,6 +117,7 @@ function play() {
     setTextElementValueById('current-life', 5);
     setTextElementValueById('current-score', 0);
 
+    isGamePlayOn = true;
 
     cotinueGame();
 }
@@ -120,4 +134,7 @@ function gameOver(){
     // clear the last selected alphabet helight
     const currentAlphabet = getElementTextById('current-alphabet');
     removeBackgroundColorById(currentAlphabet);
+
+    isGamePlayOn = false;
 }
+

@@ -29,6 +29,7 @@
 
 // }
 
+// ------------------------------------- Practice ONE 1 ---------------------------------------------------
 
 function hideElementById(elementId){
     const element = document.getElementById(elementId);
@@ -80,3 +81,5 @@ function setTextElementValueById(elementId,value){
     const element = document.getElementById(elementId);
     element.innerText = value;
 }
+
+
